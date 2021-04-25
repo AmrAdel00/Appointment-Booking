@@ -17,6 +17,7 @@ class CreateCalendarsTable extends Migration
             $table->date('date')->primary();
             $table->string('day_name');
             $table->unsignedInteger('day');
+            $table->string('month_name');
             $table->unsignedInteger('month');
             $table->unsignedInteger('year');
         });

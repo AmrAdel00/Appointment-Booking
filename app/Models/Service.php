@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Appointment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -10,29 +11,20 @@ class Service extends Model
 {
     use HasFactory;
 
-    protected $appends = ['calendar'];
+    protected $appends = ['appointments'];
 
     public function bookings()
     {
         return $this->hasMany(Booking::class);
     }
 
-    public function getCalendarAttribute()
+    public function getAppointmentsAttribute()
     {
-        return '';
-    }
-
-    private function checkBooking($bookingDate,$bookingTime)
-    {
-        $booking = Booking::where('service_id',$this->attributes['id'])
-                ->where('booking_date',$bookingDate)
-                ->where('booking_time',$bookingTime)
-                ->first();
-        if($booking){
-            return false;
-        }else {
-            return true;
+        $times = DB::table('times')->pluck('time')->toArray();
+        foreach ($times as $time){
+            $appointments[] = new Appointment($this->attributes['id'],$time);
         }
+        return $appointments;
     }
 
 }

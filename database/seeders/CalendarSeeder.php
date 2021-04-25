@@ -21,6 +21,7 @@ class CalendarSeeder extends Seeder
                 'date' => $date->format('Y-m-d'),
                 'day_name' => $date->format('D'),
                 'day' => $date->day,
+                'month_name' => $date->format('M'),
                 'month' => $date->month,
                 'year' => $date->year,
             ]);

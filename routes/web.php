@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/home',[HomeController::class,'index']);
 
 Route::get('/', function () {
-    return \App\Models\Service::all();
+    $service =  \App\Models\Service::first();
+    return $service->appointments[0]->days;
 });
 
